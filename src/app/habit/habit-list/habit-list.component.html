@@ -1,0 +1,7 @@
+<input [(ngModel)]="habit"><button (click)="onAddHabit({value: habit})">Add</button>
+<ul>
+  <app-habit-item
+    *ngFor="let habit of habits | async"
+    [habit]="habit">
+  </app-habit-item>
+</ul>

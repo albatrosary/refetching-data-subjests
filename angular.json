@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "refetching-data-subjests"
+    }
+  },
+  "defaultProject": "refetching-data-subjests",
+  "cli": {
+    "analytics": false
+  }
 }
