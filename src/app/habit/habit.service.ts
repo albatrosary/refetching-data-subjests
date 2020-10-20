@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Habit } from './habit';
 
@@ -9,22 +9,23 @@ import { Habit } from './habit';
   providedIn: 'root'
 })
 export class HabitService {
-  testData: Habit[] = [
-    {value: 'Chack in with parents once a week'},
-    {value: 'Record 2 videos per day'},
-    {value: 'Work on side project 5 hours/week'},
-    {value: 'Write for 20 minutes a day'},
-    {value: 'Feed dog twice a day'},
-  ];
+  private refetchSubject = new BehaviorSubject(null);
+
   constructor(
     private http: HttpClient
   ) { }
 
+  get refetch(): Observable<Habit[]> {
+    return this.refetchSubject.asObservable();
+  }
   getHabits(): Observable<Habit[]> {
     return this.http.get<Habit[]>('/api/habits');
   }
 
   addHabit(newHabit: Habit): any {
-    return this.http.post<Habit>('/api/habits', newHabit);
+    return this.http.post<Habit>('/api/habits', newHabit)
+      .pipe(
+        tap(() => this.refetchSubject.next(null))
+      );
   }
 }
