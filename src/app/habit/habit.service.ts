@@ -22,7 +22,7 @@ export class HabitService {
     return this.http.get<Habit[]>('/api/habits');
   }
 
-  addHabit(newHabit: Habit): any {
+  addHabit(newHabit: Habit): Observable<Habit> {
     return this.http.post<Habit>('/api/habits', newHabit)
       .pipe(
         tap(() => this.refetchSubject.next(null))
