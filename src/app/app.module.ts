@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HabitListComponent } from './habit/habit-list/habit-list.component';
 import { HabitItemComponent } from './habit/habit-item/habit-item.component';
 
+import { fakeBackendProvider } from './_mock/fake-backend.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,9 @@ import { HabitItemComponent } from './habit/habit-item/habit-item.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [,
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

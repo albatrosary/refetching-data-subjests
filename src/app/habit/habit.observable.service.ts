@@ -8,25 +8,16 @@ import { Habit } from './habit';
 @Injectable({
   providedIn: 'root'
 })
-export class HabitService {
-  private refetchSubject = new BehaviorSubject(null);
-
+export class HabitObservableService {
   constructor(
     private http: HttpClient
   ) { }
-
-  get refetch(): Observable<Habit[]> {
-    return this.refetchSubject;
-  }
 
   getHabits(): Observable<Habit[]> {
     return this.http.get<Habit[]>('/api/habits');
   }
 
   addHabit(newHabit: Habit): Observable<Habit> {
-    return this.http.post<Habit>('/api/habits', newHabit)
-      .pipe(
-        tap(() => this.refetchSubject.next(null))
-      );
+    return this.http.post<Habit>('/api/habits', newHabit);
   }
 }
